@@ -8,6 +8,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 import java.io.LineNumberReader;
@@ -17,143 +18,156 @@ import static java.lang.System.in;
 
 public class Solution
 {
+    //This method writes lines from listLines to the file by fileWriter
+    static void writeToFile(List<String> listLines, FileWriter fileWriter) throws IOException
+    {
+        for(int i = 0 ; i < listLines.size(); i++)
+        {
+            String s = "";
+        
+            if(i != listLines.size()-1)
+            {
+                s = listLines.get(i) + "\n";
+            }
+            else
+            {
+                s =  listLines.get(i);
+            }
+            fileWriter.write(s);
+        }
+    }
+    //this method returns a changed list of lines
+    static List<String> changeList(  String valueOfFirstArgument, List<String> listLines, String searchedIdFromArgs, String stringForReplacing)
+    {
+        for (int i = 0; i < listLines.size(); i++)
+        {
+            String str = listLines.get(i);
+            
+            if (str.isEmpty())
+            {
+                continue;
+            }
+            else
+            {
+                String substr = str.substring(0, 8).trim();
+                
+                if (searchedIdFromArgs.equals(substr))
+                {
+                    if(valueOfFirstArgument == "-u")
+                    {
+                        listLines.set(i, stringForReplacing);
+                    }
+                    else if(valueOfFirstArgument == "-d")
+                    {
+                        listLines.remove(i);
+                    }
+                }
+            }
+        }
+        return  listLines;
+    }
+    
     public static void main(String[] args) throws IOException
     {
         // -u id productName price quantity
         
-       // BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-    
-        String fileName = "F:/1.txt" ; //bufferedReader.readLine();
-    
-        // bufferedReader.close();
+        String valueOfFirstArgument = args[0];
         
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    
+        String fileName = /*"F:/1.txt" ;*/ bufferedReader.readLine();
+    
+        bufferedReader.close();
         
     
-        File fileForReading = new File(fileName);
+        File file = new File(fileName);
         
-        Path path = fileForReading.toPath();
+        //Path path = file.toPath();
     
-        String searchId = args[1];
-        String searchIdFormatted = String.format("%-8s", searchId);
-    
-        List<String> listLines = Files.readAllLines(path);
-    
-        FileReader fileReader = new FileReader(fileForReading);
-        FileWriter fileWriter = new FileWriter(fileForReading);
+        String argsId = args[1];
+        String idFormatted = String.format("%-8s", argsId);
         
+        //this is a simple way to read all lines from file to list, but validator doesn't accept it :(
+        // List<String> listLines = Files.readAllLines(path);
+        
+        //reading all lines from file
+        List<String> listLines =  new ArrayList<>();
+    
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName)))
+        {
+            String line;
+            while ((line = br.readLine()) != null)
+            {
+                listLines.add(line);
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     
         if (args == null || args.length == 0) // if args is empty do nothing
         {
         
         }
-        if ("-u".equals(args[0]))
+        else if ("-u".equals(args[0]))
         {
-            try
+            try(FileWriter fileWriter = new FileWriter(file);)
             {
-                String productName = args[2];
-                productName = String.format("%-30s", productName);
+                String productName = new String();
     
-                String price = args[3];
+                String price = args[args.length -2];
                 price = String.format("%-8s", price);
     
-                String quantity = args[4];
+                String quantity = args[args.length -1];
                 quantity = String.format("%-4s", quantity);
-    
-                String replace = searchIdFormatted + productName + price + quantity;
                 
-        
-                for (int i = 0 ; i < listLines.size(); i++)
+    
+                int indexOfPrice = args.length - 2;
+                
+                // get name of product from args
+                for (int i = 2; i < indexOfPrice; i++)
                 {
-                    String str = listLines.get(i);
-                    
-                    if(str.isEmpty())
+                    if (i != indexOfPrice - 1)
                     {
-                        continue;
+                        productName = productName + args[i] + " ";
                     }
                     else
                     {
-                        String substr = str.substring(0, 8).trim();
+                        productName = productName + args[i];
+                    }
+                }
     
-                        if (searchId.equals(substr))
-                        {
-                            str = str.replaceAll("(.+)", replace);
-                            listLines.set(i, replace);
-                        }
-                    }
-                }
-        
-                fileReader.close();
+                productName = String.format("%-30s", productName);
                 
-                for(int i = 0 ; i < listLines.size(); i++)
-                {
-                    String s = "";
-                    
-                    if(i != listLines.size()-1)
-                    {
-                        s = listLines.get(i) + "\n";
-                    }
-                    else
-                    {
-                        s =  listLines.get(i);
-                    }
-                    
-                    fileWriter.write(s);
-                }
+                //summary line from args after formatting
+                String replace = idFormatted + productName + price + quantity;
                 
-                //fileWriter.close();
+                listLines = changeList("-u", listLines, argsId, replace);
+                
+                //This writes changed list to file
+                writeToFile(listLines, fileWriter);
             }
             catch (Exception e)
             {
                 e.printStackTrace();
             }
         }
-        /*else if("-d".equals(args[0])) //TODO - refactor this all!
+        
+        else if("-d".equals(args[0]))
         {
-            try
+            try(FileWriter fileWriter = new FileWriter(file))
             {
-        
-                for (int i = 0 ; i < listLines.size(); i++)
-                {
-                    String str = listLines.get(i);
-            
-                    if(str.isEmpty())
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        String substr = str.substring(0, 8).trim();
+                //remove needed line from list
+                listLines = changeList("-d", listLines, argsId, "");
                 
-                        if (searchId.equals(substr))
-                        {
-                            listLines.remove(i);
-                        }
-                    }
-                }
-        
-                for(int i = 0 ; i < listLines.size(); i++)
-                {
-                    String s = "";
-            
-                    if(i != listLines.size()-1)
-                    {
-                        s = listLines.get(i) + "\n";
-                    }
-                    else
-                    {
-                        s =  listLines.get(i);
-                    }
-            
-                    fileWriter.write(s);
-                }
+                // it writes lines from listLines to file
+                writeToFile(listLines, fileWriter);
             }
             catch (Exception e)
             {
                 e.printStackTrace();
             }
-            //fileReader.close();
-            //fileWriter.close();
         }
-        */
     }
 }
