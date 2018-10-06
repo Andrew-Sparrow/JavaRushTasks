@@ -21,11 +21,13 @@ public class Solution
     {
         // -u id productName price quantity
         
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+       // BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
     
-        String fileName = /*"F:/1.txt" ;*/ bufferedReader.readLine();
+        String fileName = "F:/1.txt" ; //bufferedReader.readLine();
     
-         bufferedReader.close();
+        // bufferedReader.close();
+        
+        
     
         File fileForReading = new File(fileName);
         
@@ -35,13 +37,16 @@ public class Solution
         String searchIdFormatted = String.format("%-8s", searchId);
     
         List<String> listLines = Files.readAllLines(path);
+    
+        FileReader fileReader = new FileReader(fileForReading);
+        FileWriter fileWriter = new FileWriter(fileForReading);
         
     
         if (args == null || args.length == 0) // if args is empty do nothing
         {
         
         }
-        else if ("-u".equals(args[0]))
+        if ("-u".equals(args[0]))
         {
             try
             {
@@ -55,12 +60,7 @@ public class Solution
                 quantity = String.format("%-4s", quantity);
     
                 String replace = searchIdFormatted + productName + price + quantity;
-                FileReader fileReader = new FileReader(fileForReading);
-                FileWriter fileWriter = new FileWriter(fileForReading);
-        
-                //BufferedReader br = new BufferedReader(fileReader);
-        
-                //BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                
         
                 for (int i = 0 ; i < listLines.size(); i++)
                 {
@@ -100,23 +100,17 @@ public class Solution
                     fileWriter.write(s);
                 }
                 
-                fileWriter.close();
+                //fileWriter.close();
             }
             catch (Exception e)
             {
                 e.printStackTrace();
             }
         }
-        else if("-d".equals(args[0])) //TODO - refactor this all!
+        /*else if("-d".equals(args[0])) //TODO - refactor this all!
         {
             try
             {
-                FileReader fileReader = new FileReader(fileForReading);
-                FileWriter fileWriter = new FileWriter(fileForReading);
-        
-                //BufferedReader br = new BufferedReader(fileReader);
-        
-                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         
                 for (int i = 0 ; i < listLines.size(); i++)
                 {
@@ -137,8 +131,6 @@ public class Solution
                     }
                 }
         
-                fileReader.close();
-        
                 for(int i = 0 ; i < listLines.size(); i++)
                 {
                     String s = "";
@@ -154,14 +146,14 @@ public class Solution
             
                     fileWriter.write(s);
                 }
-        
-                fileWriter.close();
             }
             catch (Exception e)
             {
                 e.printStackTrace();
             }
+            //fileReader.close();
+            //fileWriter.close();
         }
-        
+        */
     }
 }

@@ -116,7 +116,7 @@ public class Solution
 
                 output.newLine();
 
-                output.append(increasedMaxIdString + productName + price +quantity);
+                output.append(increasedMaxIdString + productName + price + quantity);
 
                 output.close();
 
