@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="commit #3 task1908">
+      <change afterPath="$PROJECT_DIR$/out/production/2.JavaCore/com/javarush/task/task18/task1826/Solution.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/2.JavaCore/com/javarush/task/task18/task1826/Условие.jrtc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/2.JavaCore/src/com/javarush/task/task18/task1826/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/2.JavaCore/src/com/javarush/task/task18/task1826/Solution.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out.log" beforeDir="false" afterPath="$PROJECT_DIR$/out.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/2.JavaCore/com/javarush/task/task18/task1828/Solution.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/2.JavaCore/com/javarush/task/task18/task1828/Solution.class" afterDir="false" />
     </list>
     <ignored path="JavaRushTasks.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -102,8 +105,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/2.JavaCore/src/com/javarush/task/task18/task1826/Solution.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="15" column="4" lean-forward="true" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+            <state relative-caret-position="651">
+              <caret line="31" column="9" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -472,7 +475,7 @@
     <property name="SearchEverywhereHistoryKey" value="&#9;null&#9;null&#10;reader&#9;PSI&#9;JAVA://java.io.Reader&#10;Run context configuration&#9;ACTION&#9;RunClass" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538931396825" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538931674594" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit3" />
     <property name="full.screen.before.presentation.mode" value="false" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
@@ -1350,11 +1353,11 @@
       <window_info anchor="right" id="Coverage" order="8" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="9" />
       <window_info anchor="right" id="Capture Analysis" order="10" />
-      <window_info active="true" anchor="right" id="Run" order="11" sideWeight="0.5286416" visible="true" weight="0.29584223" />
+      <window_info anchor="right" id="Run" order="11" sideWeight="0.5286416" weight="0.29584223" />
       <window_info anchor="right" x="92" y="92" width="1736" height="856" id="Documentation" order="12" type="FLOATING" />
       <window_info anchor="right" x="1292" y="108" width="1876" height="191" id="Messages" order="13" sideWeight="0.47135842" side_tool="true" weight="0.37473348" />
       <window_info anchor="right" id="Debug" order="14" sideWeight="0.4561774" side_tool="true" weight="0.32853332" />
-      <window_info anchor="right" id="Terminal" order="15" sideWeight="0.48933902" weight="0.40138593" />
+      <window_info active="true" anchor="right" id="Terminal" order="15" sideWeight="0.48933902" visible="true" weight="0.40138593" />
       <window_info anchor="right" id="TODO" order="16" sideWeight="0.46822035" weight="0.24946696" />
       <window_info anchor="right" auto_hide="true" x="-1280" y="79" width="1280" height="1001" id="Version Control" order="17" sideWeight="0.53177965" type="WINDOWED" weight="0.7542644" />
       <window_info anchor="right" id="Event Log" order="18" sideWeight="0.47135842" weight="0.37473348" />
@@ -1767,8 +1770,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/2.JavaCore/src/com/javarush/task/task18/task1826/Solution.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="15" column="4" lean-forward="true" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+        <state relative-caret-position="651">
+          <caret line="31" column="9" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
         </state>
       </provider>
     </entry>
