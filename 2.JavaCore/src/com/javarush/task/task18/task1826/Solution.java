@@ -11,14 +11,11 @@ public class Solution
     public static void main(String[] args) throws IOException
     {
         String valueOfArg = args[0];
-        String fileName = "F:/1.txt";
-        String fileOutputName = "F:/2.txt";
+        String fileName = args[1];/*"F:/1.txt";*/
+        String fileOutputName = args[2];/*"F:/2.txt";*/
     
-        System.out.println(args[1]);
-        /*
-        FileInputStream fileInputStream = new FileInputStream(fileOutputName);
-        FileOutputStream fileOutputStream = new FileOutputStream(fileName);
-        
+        FileInputStream fileInputStream = new FileInputStream(fileName);
+        FileOutputStream fileOutputStream = new FileOutputStream(fileOutputName);
         
         if("-e".equals(valueOfArg))
         {
@@ -36,6 +33,8 @@ public class Solution
                 fileOutputStream.write(data - 1);
         
             }
-        }*/
+        }
+        fileInputStream.close();
+        fileOutputStream.close();
     }
 }
