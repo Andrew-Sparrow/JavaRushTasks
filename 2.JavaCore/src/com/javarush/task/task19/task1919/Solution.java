@@ -14,54 +14,52 @@ public class Solution
 {
     public static void main(String[] args) throws IOException
     {
-        try
+        
+        String fileName = args[0];
+    
+        FileReader fileReader = new FileReader(fileName);
+    
+        Map<String, Double> map = new TreeMap<>();
+        
+        StringBuilder stringBuilder = new StringBuilder();
+        
+        //adding lines from file to stringBuilder
+        while(fileReader.ready())
         {
-            String fileName = args[0];
-        
-            File fileRead = new File(fileName);
-        
-            FileReader fileReader = new FileReader(fileRead);
-        
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-        
-            Map<String, Double> map = new TreeMap<>();
-        
-            while(bufferedReader.ready())
-            {
-                String s = bufferedReader.readLine();
-                
-                String[] strArr = s.split(" ");
-                
-                String key = strArr[0];
-                Double dblValue = Double.parseDouble(strArr[1]);
-                
-                if(map.containsKey(strArr[0]))
-                {
-                    map.replace(key, map.get(key), map.get(key) + dblValue);
-                }
-                else
-                    map.put(key,dblValue );
-            }
-            
-            Iterator<Map.Entry<String, Double>> iterator = map.entrySet().iterator();
-            
-            while (iterator.hasNext())
-            {
-                Map.Entry<String, Double> pair = iterator.next();
-        
-                String key  = pair.getKey();
-                Double value = pair.getValue();
-        
-                System.out.println(key + " " + value);
-            }
+           Character character = (char)fileReader.read();
+           
+           stringBuilder.append(character);
         }
-        catch (NumberFormatException e)
+        String str = stringBuilder.toString();
+        String[] arrLines = str.split("\n"); //split string by newLine
+
+        for (String s: arrLines)
         {
-            e.printStackTrace();
+            String[] strArr = s.split(" "); // split string by whitespace
+
+            String key = strArr[0];
+            Double value = Double.parseDouble(strArr[1]);
+
+            if(map.containsKey(strArr[0])) // putting substrings to map
+            {
+                map.replace(key, map.get(key), map.get(key) + value);
+            }
+            else
+                map.put(key,value );
         }
-        catch (IOException e)
+        
+        fileReader.close();
+        
+        Iterator<Map.Entry<String, Double>> iterator = map.entrySet().iterator();
+        
+        while (iterator.hasNext())
         {
-            e.printStackTrace();
+            Map.Entry<String, Double> pair = iterator.next();
+    
+            String key  = pair.getKey();
+            Double value = pair.getValue();
+    
+            System.out.println(key + " " + value);
         }
     }
 }
