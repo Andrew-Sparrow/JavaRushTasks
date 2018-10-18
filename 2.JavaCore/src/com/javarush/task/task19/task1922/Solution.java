@@ -4,10 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /* 
 Ищем нужные строки
@@ -26,11 +25,11 @@ public class Solution
     
     public static void main(String[] args) throws IOException
     {
-        //BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
     
-        String fileName = /*bufferedReader.readLine()*/ "F:/1.txt";
+        String fileName = bufferedReader.readLine() ; /*"F:/1.txt";*/
     
-        //bufferedReader.close();
+        bufferedReader.close();
     
         FileReader fileReader = new FileReader(fileName);
     
@@ -45,27 +44,37 @@ public class Solution
         }
         fileReader.close();
     
-        String str = stringBuilder.toString();
-        String[] arrLines = str.split("\n"); //split string by newLine
+        String str = new String(stringBuilder);
+        
+        String[] arrLines = str.split("\r\n"); //split string by newLine
     
-        /*for (String s: arrLines)
-        {
-            System.out.println(s);
-        }*/
+    
         for ( String strArrLines: arrLines )
         {
             int count = 0;
-            String[] arrSplitted = strArrLines.split(" ");
-        
-            for ( String strWords: words)
+            
+            if (strArrLines == null || strArrLines.isEmpty())
             {
-                for ( String strArrSplitted: arrSplitted)
+                count = 0;
+            }
+            else
+            {
+                String[] arrSplitted = strArrLines.split(" "); //splitting each line by whitespace
+    
+                // verify if each word from List-"words" equals each word from temporary "arrSplitted"
+                for (String strWords : words)
                 {
-                    if(strWords.equals(strArrSplitted))
-                        ++count;
+                    for (String strArrSplitted : arrSplitted)
+                    {
+                        if (strWords.equals(strArrSplitted))
+                            ++count;
+                    }
+                }
+                if (count == 2)
+                {
+                    System.out.println(strArrLines);
                 }
             }
-            System.out.println(count);
         }
     }
 }
