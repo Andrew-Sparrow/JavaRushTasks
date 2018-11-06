@@ -41,39 +41,68 @@ public class Solution
             String s = bufferedReader2.readLine();
             listString2.add(s);
         }
+        fileReader2.close();
+        bufferedReader2.close();
         
         //int sizeLeastListString ;
         
-        if(listString1.size() < listString2.size())
+        if(listString1.size() > listString2.size())
         {
+            int countListString2 = 0;
+            
             for (int i = 0; i < listString1.size(); i++)
             {
-                if(listString1.get(i).equals(listString2.get(i)))
+                System.out.println(i +" " + countListString2);
+               
+                if(listString1.get(i).equals(listString2.get(countListString2)))
                 {
                     lines.add(new LineItem(Type.SAME , listString1.get(i)));
-                    lines.add(new LineItem(Type.ADDED , listString2.get(i+1)));
+                    System.out.println(" The same");
+                    
+                    if(countListString2 < listString2.size() -1)
+                    {
+                        countListString2++;
+                    }
+                }
+                else
+                {
+                    // take penultimate element, to avoid exception when checking equivalence
+                    if( i < listString1.size() - 1 )
+                    {
+                        if (listString1.get(i + 1).equals(listString2.get(countListString2)))
+                        {
+                            System.out.println(" removed " + listString1.get(i) + " " + listString2.get(countListString2));
+                            lines.add(new LineItem(Type.REMOVED, listString1.get(i)));
+                        }
+                        else if(listString1.get(i).equals(listString2.get(countListString2 + 1 )) )
+                        {
+                            lines.add(new LineItem(Type.ADDED, listString2.get(countListString2)));
+                            System.out.println(" added " + listString1.get(i) + " " + listString2.get(countListString2));
+                            
+                            if(countListString2 < listString2.size() -1)
+                            {
+                                countListString2++;
+                            }
+                            i = i - 1;
+                        }
+                    }
+                    // if it is a last element in listString1(fileReader1)
+                    else
+                    {
+                        lines.add(new LineItem(Type.REMOVED, listString1.get(i)));
+                    }
                 }
             }
         }
-        else
-        {
-            for (int i = 0; i < listString2.size(); i++)
-            {
-                if(listString1.get(i).equals(listString2.get(i)))
-                {
-                    lines.add(new LineItem(Type.SAME , listString1.get(i)));
-                    lines.add(new LineItem(Type.REMOVED , listString1.get(i+1)));
-                }
-            }
-        }
+        
+        //lines.add(new LineItem(Type.SAME , listString1.get(i)));
+        System.out.println();
         
         for ( LineItem lineItem : lines )
         {
             System.out.println(lineItem.toString());
         }
         
-        fileReader2.close();
-        bufferedReader2.close();
     }
     
     public static enum Type
