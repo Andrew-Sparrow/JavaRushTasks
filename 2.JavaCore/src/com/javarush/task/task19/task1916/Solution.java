@@ -3,6 +3,7 @@ package com.javarush.task.task19.task1916;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,15 @@ public class Solution
     
     public static void main(String[] args) throws IOException
     {
-        String fileNameRead1 = "F:/1.txt";
-        String fileNameRead2 = "F:/2.txt";
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        
+        String fileOld = bufferedReader.readLine();
+        String fileNew = bufferedReader.readLine();
+        
+        bufferedReader.close();
+        
+        String fileNameRead1 = fileOld; //"F:/1.txt";
+        String fileNameRead2 = fileNew; //"F:/2.txt";
         
         FileReader fileReader1 = new FileReader(fileNameRead1);
         FileReader fileReader2 = new FileReader(fileNameRead2);
@@ -44,65 +52,69 @@ public class Solution
         fileReader2.close();
         bufferedReader2.close();
         
-        //int sizeLeastListString ;
-        
-        if(listString1.size() > listString2.size())
-        {
-            int countListString2 = 0;
+        int countListString2 = 0;
             
             for (int i = 0; i < listString1.size(); i++)
             {
-                System.out.println(i +" " + countListString2);
-               
                 if(listString1.get(i).equals(listString2.get(countListString2)))
                 {
                     lines.add(new LineItem(Type.SAME , listString1.get(i)));
-                    System.out.println(" The same");
                     
                     if(countListString2 < listString2.size() -1)
                     {
-                        countListString2++;
+                        countListString2 ++;
                     }
                 }
-                else
+                // if not penultimate
+                if(i < listString1.size()-1)
                 {
-                    // take penultimate element, to avoid exception when checking equivalence
-                    if( i < listString1.size() - 1 )
+                    if( listString1.get(i+1).equals(listString2.get(countListString2)))
                     {
-                        if (listString1.get(i + 1).equals(listString2.get(countListString2)))
+                        lines.add(new LineItem(Type.REMOVED , listString1.get(i)));
+                    }
+                }
+                //if penultimate list2
+                if(listString2.size() > 1 && countListString2 < listString2.size() - 1)
+                {
+                    //if equals next value in list2
+                    if (listString1.get(i).equals(listString2.get(countListString2 + 1)) )
+                    {
+                        lines.add(new LineItem(Type.ADDED, listString2.get(countListString2)));
+                        i = i - 1;
+            
+                        if (countListString2 < listString2.size() -1)
                         {
-                            System.out.println(" removed " + listString1.get(i) + " " + listString2.get(countListString2));
-                            lines.add(new LineItem(Type.REMOVED, listString1.get(i)));
+                            countListString2++;
                         }
-                        else if(listString1.get(i).equals(listString2.get(countListString2 + 1 )) )
+                    }
+                }
+                
+                // if last elements are not equals in lists
+                if( i == listString1.size() - 1
+                    && !listString1.get(i).equals(listString2.get(listString2.size()-1)))
+                {
+                    //if listString1.size() is 2 or more and previous value in listString1 equals last value in listString2
+                    if(i > 0  )
+                    {
+                        if(listString1.get(i -1).equals(listString2.get(listString2.size()-1)))
                         {
-                            lines.add(new LineItem(Type.ADDED, listString2.get(countListString2)));
-                            System.out.println(" added " + listString1.get(i) + " " + listString2.get(countListString2));
-                            
-                            if(countListString2 < listString2.size() -1)
+                            lines.add(new LineItem(Type.REMOVED, listString1.get(i)));
+    
+                            if (countListString2 < listString2.size() - 1)
                             {
                                 countListString2++;
                             }
-                            i = i - 1;
                         }
                     }
-                    // if it is a last element in listString1(fileReader1)
-                    else
+                    if(listString2.size() > 1)
                     {
-                        lines.add(new LineItem(Type.REMOVED, listString1.get(i)));
+                        if(listString2.get(listString2.size() - 2).equals(listString1.get(i)))
+                        {
+                            lines.add(new LineItem(Type.ADDED, listString2.get(listString2.size()-1)));
+                        }
                     }
                 }
             }
-        }
-        
-        //lines.add(new LineItem(Type.SAME , listString1.get(i)));
-        System.out.println();
-        
-        for ( LineItem lineItem : lines )
-        {
-            System.out.println(lineItem.toString());
-        }
-        
     }
     
     public static enum Type
